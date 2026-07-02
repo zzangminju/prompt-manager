@@ -31,6 +31,7 @@ def show_menu():
     print("\n===== 프롬프트 관리 프로그램 =====")
     print("1. 전체 목록 보기")
     print("2. 프롬프트 추가")
+    print("3. 카테고리별 조회")
     print("0. 종료")
     print("================================")
 
@@ -52,19 +53,16 @@ def add_prompt():
     """새 프롬프트를 입력받아 추가하는 함수"""
     print("\n----- 프롬프트 추가 -----")
 
-    # 제목 입력 (비어 있으면 다시 요청)
     title = input("제목: ").strip()
     while title == "":
         print("제목은 비워둘 수 없어요.")
         title = input("제목: ").strip()
 
-    # 내용 입력 (비어 있으면 다시 요청)
     content = input("내용: ").strip()
     while content == "":
         print("내용은 비워둘 수 없어요.")
         content = input("내용: ").strip()
 
-    # 카테고리 선택
     print("카테고리를 선택하세요:")
     for i in range(len(categories)):
         print(f"  {i + 1}. {categories[i]}")
@@ -77,7 +75,6 @@ def add_prompt():
     else:
         category = category_input
 
-    # 새 프롬프트를 리스트에 추가 (즐겨찾기 기본값 False)
     prompts.append({
         "title": title,
         "content": content,
@@ -85,6 +82,35 @@ def add_prompt():
         "favorite": False
     })
     print(f"'{title}' 프롬프트가 추가되었어요!")
+
+
+def show_by_category():
+    """카테고리를 선택하면 해당 카테고리의 프롬프트만 보여주는 함수"""
+    print("\n----- 카테고리별 조회 -----")
+    print("카테고리를 선택하세요:")
+    for i in range(len(categories)):
+        print(f"  {i + 1}. {categories[i]}")
+
+    choice = input("번호를 선택하세요: ").strip()
+
+    # 입력한 번호가 올바른지 확인
+    if not (choice.isdigit() and 1 <= int(choice) <= len(categories)):
+        print("잘못된 번호예요.")
+        return
+
+    selected = categories[int(choice) - 1]
+
+    # 선택한 카테고리에 해당하는 프롬프트만 골라서 출력
+    found = False
+    print(f"\n[{selected}] 카테고리 프롬프트:")
+    for i in range(len(prompts)):
+        if prompts[i]["category"] == selected:
+            star = "⭐" if prompts[i]["favorite"] else "  "
+            print(f"{i + 1}. {star} {prompts[i]['title']}")
+            found = True
+
+    if not found:
+        print("이 카테고리에는 프롬프트가 없어요.")
 
 
 def main():
@@ -97,6 +123,8 @@ def main():
             show_list()
         elif choice == "2":
             add_prompt()
+        elif choice == "3":
+            show_by_category()
         elif choice == "0":
             print("프로그램을 종료합니다. 안녕히 가세요!")
             break
