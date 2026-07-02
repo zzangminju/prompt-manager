@@ -1,5 +1,8 @@
 # 프롬프트 관리 프로그램
 
+# 사용할 수 있는 카테고리 목록
+categories = ["텍스트 생성", "이미지 생성", "영상 생성", "페르소나", "자동화", "기타"]
+
 # 기본 프롬프트 데이터 (프로그램 시작 시 미리 등록됨)
 prompts = [
     {
@@ -27,6 +30,7 @@ def show_menu():
     """메뉴 화면을 보여주는 함수"""
     print("\n===== 프롬프트 관리 프로그램 =====")
     print("1. 전체 목록 보기")
+    print("2. 프롬프트 추가")
     print("0. 종료")
     print("================================")
 
@@ -44,6 +48,45 @@ def show_list():
         print(f"{i + 1}. {star} [{p['category']}] {p['title']}")
 
 
+def add_prompt():
+    """새 프롬프트를 입력받아 추가하는 함수"""
+    print("\n----- 프롬프트 추가 -----")
+
+    # 제목 입력 (비어 있으면 다시 요청)
+    title = input("제목: ").strip()
+    while title == "":
+        print("제목은 비워둘 수 없어요.")
+        title = input("제목: ").strip()
+
+    # 내용 입력 (비어 있으면 다시 요청)
+    content = input("내용: ").strip()
+    while content == "":
+        print("내용은 비워둘 수 없어요.")
+        content = input("내용: ").strip()
+
+    # 카테고리 선택
+    print("카테고리를 선택하세요:")
+    for i in range(len(categories)):
+        print(f"  {i + 1}. {categories[i]}")
+    category_input = input("번호 또는 직접 입력: ").strip()
+
+    if category_input.isdigit() and 1 <= int(category_input) <= len(categories):
+        category = categories[int(category_input) - 1]
+    elif category_input == "":
+        category = "기타"
+    else:
+        category = category_input
+
+    # 새 프롬프트를 리스트에 추가 (즐겨찾기 기본값 False)
+    prompts.append({
+        "title": title,
+        "content": content,
+        "category": category,
+        "favorite": False
+    })
+    print(f"'{title}' 프롬프트가 추가되었어요!")
+
+
 def main():
     """프로그램을 시작하고 반복시키는 함수"""
     while True:
@@ -52,6 +95,8 @@ def main():
 
         if choice == "1":
             show_list()
+        elif choice == "2":
+            add_prompt()
         elif choice == "0":
             print("프로그램을 종료합니다. 안녕히 가세요!")
             break
