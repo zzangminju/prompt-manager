@@ -32,6 +32,7 @@ def show_menu():
     print("1. 전체 목록 보기")
     print("2. 프롬프트 추가")
     print("3. 카테고리별 조회")
+    print("4. 검색")
     print("0. 종료")
     print("================================")
 
@@ -93,14 +94,12 @@ def show_by_category():
 
     choice = input("번호를 선택하세요: ").strip()
 
-    # 입력한 번호가 올바른지 확인
     if not (choice.isdigit() and 1 <= int(choice) <= len(categories)):
         print("잘못된 번호예요.")
         return
 
     selected = categories[int(choice) - 1]
 
-    # 선택한 카테고리에 해당하는 프롬프트만 골라서 출력
     found = False
     print(f"\n[{selected}] 카테고리 프롬프트:")
     for i in range(len(prompts)):
@@ -111,6 +110,29 @@ def show_by_category():
 
     if not found:
         print("이 카테고리에는 프롬프트가 없어요.")
+
+
+def search_prompt():
+    """키워드로 제목이나 내용에서 프롬프트를 검색하는 함수"""
+    print("\n----- 프롬프트 검색 -----")
+    keyword = input("검색어를 입력하세요: ").strip()
+
+    if keyword == "":
+        print("검색어를 입력해야 해요.")
+        return
+
+    found = False
+    print(f"\n'{keyword}' 검색 결과:")
+    for i in range(len(prompts)):
+        p = prompts[i]
+        # 제목이나 내용에 검색어가 들어 있으면 출력
+        if keyword in p["title"] or keyword in p["content"]:
+            star = "⭐" if p["favorite"] else "  "
+            print(f"{i + 1}. {star} [{p['category']}] {p['title']}")
+            found = True
+
+    if not found:
+        print("검색 결과가 없어요.")
 
 
 def main():
@@ -125,6 +147,8 @@ def main():
             add_prompt()
         elif choice == "3":
             show_by_category()
+        elif choice == "4":
+            search_prompt()
         elif choice == "0":
             print("프로그램을 종료합니다. 안녕히 가세요!")
             break
