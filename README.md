@@ -66,7 +66,9 @@ Receiving objects: 100% (13/13), done.
 
 1. Python 3.10 이상이 설치되어 있어야 합니다.
 2. 프로젝트 폴더로 이동합니다.
+   ```
    cd Desktop
+   ```
    ```
    cd prompt-manager
    ```
