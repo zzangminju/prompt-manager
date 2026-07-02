@@ -34,6 +34,8 @@ def show_menu():
     print("3. 카테고리별 조회")
     print("4. 검색")
     print("5. 상세 보기")
+    print("6. 즐겨찾기 추가/해제")
+    print("7. 즐겨찾기 목록")
     print("0. 종료")
     print("================================")
 
@@ -137,14 +139,13 @@ def search_prompt():
 
 def show_detail():
     """번호를 입력하면 그 프롬프트의 전체 내용을 보여주는 함수"""
-    show_list()  # 먼저 목록을 보여줘서 번호를 고르게 함
+    show_list()
 
     if len(prompts) == 0:
         return
 
     choice = input("\n자세히 볼 번호를 입력하세요: ").strip()
 
-    # 올바른 번호인지 확인
     if not (choice.isdigit() and 1 <= int(choice) <= len(prompts)):
         print("잘못된 번호예요.")
         return
@@ -158,6 +159,43 @@ def show_detail():
     print(f"즐겨찾기: {star}")
     print(f"내용    : {p['content']}")
     print("=====================")
+
+
+def toggle_favorite():
+    """번호를 입력하면 즐겨찾기를 켜거나 끄는 함수"""
+    show_list()
+
+    if len(prompts) == 0:
+        return
+
+    choice = input("\n즐겨찾기를 켜고 끌 번호를 입력하세요: ").strip()
+
+    if not (choice.isdigit() and 1 <= int(choice) <= len(prompts)):
+        print("잘못된 번호예요.")
+        return
+
+    p = prompts[int(choice) - 1]
+    # 현재 상태를 반대로 바꿈 (True면 False, False면 True)
+    p["favorite"] = not p["favorite"]
+
+    if p["favorite"]:
+        print(f"'{p['title']}'을(를) 즐겨찾기에 추가했어요! ⭐")
+    else:
+        print(f"'{p['title']}'을(를) 즐겨찾기에서 해제했어요.")
+
+
+def show_favorites():
+    """즐겨찾기한 프롬프트만 모아서 보여주는 함수"""
+    print("\n----- 즐겨찾기 목록 -----")
+
+    found = False
+    for i in range(len(prompts)):
+        if prompts[i]["favorite"]:
+            print(f"{i + 1}. ⭐ [{prompts[i]['category']}] {prompts[i]['title']}")
+            found = True
+
+    if not found:
+        print("즐겨찾기한 프롬프트가 없어요.")
 
 
 def main():
@@ -176,6 +214,10 @@ def main():
             search_prompt()
         elif choice == "5":
             show_detail()
+        elif choice == "6":
+            toggle_favorite()
+        elif choice == "7":
+            show_favorites()
         elif choice == "0":
             print("프로그램을 종료합니다. 안녕히 가세요!")
             break
