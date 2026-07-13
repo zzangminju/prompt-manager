@@ -52,6 +52,11 @@ main
 
 공개 샘플 저장소를 clone으로 내려받아 폴더 구조와 로그를 확인했습니다. (확인 후 삭제)
 
+cd Desktop
+git clone https://github.com/octocat/Hello-World.git
+cd Hello-World
+git log --oneline
+
 ```
 > git clone https://github.com/octocat/Hello-World.git
 Cloning into 'Hello-World'...
