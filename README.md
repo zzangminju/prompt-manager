@@ -247,6 +247,7 @@ Receiving objects: 100% (13/13), done.
 > git checkout main                     # main으로 복귀
 > git merge feature/add-prompt          # main에 병합
 ```
+프롬포트 추가 기능만 브랜치에서 작업, 나머지는 main에서 작업
 
 ### 브랜치 분리 이유 및 병합 시점/기준
 
