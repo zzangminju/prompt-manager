@@ -25,7 +25,7 @@ Git 버전과 사용자 정보(이름·이메일) 설정을 확인한 결과입�
 
 ```
 > git --version
-git version 2.51.0.windows.1
+git version 2.55.0.windows.1
 
 > git config --global user.name
 zzangminju
