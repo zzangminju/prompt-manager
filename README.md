@@ -52,6 +52,30 @@ main
 
 공개 샘플 저장소를 clone으로 내려받아 폴더 구조와 로그를 확인했습니다. (확인 후 삭제)
 
+Git이라는 도구를 사용해서 인터넷에 올라와 있는 코드 저장소(프로젝트 폴더)를 내 컴퓨터로 복사해오고, 그 프로젝트의 변경 기록을 확인했다.
+
+Git: 코드의 변경 이력을 관리해주는 프로그램. "언제, 누가, 뭘 바꿨는지"를 기록해줍니다.
+저장소(Repository, 줄여서 repo): 프로젝트 폴더 하나라고 생각하면 됩니다.
+GitHub: 그 저장소들을 인터넷에 올려두는 사이트.
+Clone(클론): 인터넷에 있는 저장소를 통째로 내 컴퓨터에 복사해오는 것.
+Commit(커밋): 저장소에 저장된 변경 기록 한 건 한 건.
+
+cd Desktop
+
+→ "Desktop(바탕화면) 폴더로 이동해라". cd는 change directory(폴더 이동)의 약자예요.
+
+git clone https://github.com/octocat/Hello-World.git
+
+→ 저 주소에 있는 Hello-World라는 저장소를 내 컴퓨터(지금은 바탕화면)로 복사해와라.
+
+cd Hello-World
+
+→ 방금 복사해온 Hello-World 폴더 안으로 들어가라.
+
+git log --oneline
+
+→ 이 저장소의 커밋(변경) 기록을 한 줄씩 간단히 보여줘라.
+
 cd Desktop
 git clone https://github.com/octocat/Hello-World.git
 cd Hello-World
